@@ -1,0 +1,16 @@
+{
+    "name": "smartledmessenger",
+    "commands": [
+        {
+            "name": "Message à afficher",
+            "type": "action",
+            "subtype": "message",
+            "display": {
+				"generic_type": "DONT",
+                "title_placeholder": "Options",
+                "message_placeholder" : "Message"
+            },
+            "logicalId": "message:options"
+        }
+    ]
+}
