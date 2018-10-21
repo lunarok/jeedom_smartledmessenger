@@ -22,9 +22,6 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class smartledmessenger extends eqLogic {
 
 	public function loadCmdFromConf($type) {
-		if ($type == 'geofence') {
-			return true;
-		}
 		if (!is_file(dirname(__FILE__) . '/../config/devices/' . $type . '.json')) {
 			return;
 		}
@@ -55,7 +52,7 @@ class smartledmessenger extends eqLogic {
 	}
 
 	public function postAjax() {
-		$this->loadCmdFromConf($this->getConfiguration('type'));
+		$this->loadCmdFromConf('smartledmessenger');
 	}
 
 	public function sendMessage($_options = array()) {
