@@ -150,6 +150,25 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 							</div>
 						</div>
 
+						<div class="form-group">
+							<label class="col-sm-2 control-label"></label>
+							<div class="col-sm-9">
+								<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="manage" checked/>{{Gérer en local}}</label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">{{Texte à ajouter au défilement}}</label>
+							<div class="col-sm-3">
+								<div class="input-group">
+									<input type="text"  class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="addition" />
+									<span class="input-group-btn">
+										<a class="btn btn-default cursor" title="Rechercher une commande" id="bt_selectMailCmd"><i class="fa fa-list-alt"></i></a>
+									</span>
+								</div>
+							</div>
+						</div>
+
 					</fieldset>
 				</form>
 			</div>

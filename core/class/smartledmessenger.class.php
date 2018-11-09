@@ -21,6 +21,20 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class smartledmessenger extends eqLogic {
 
+	public static function cron() {
+		$eqLogics = eqLogic::byType('xiaomihome', true);
+		foreach ($eqLogics as $eqLogic) {
+			if ($eqLogic->getConfiguration('manage')) {
+				$options['message'] = date("H:i");
+				if ($eqLogic->getConfiguration('addition') != '') {
+					$options['message']+= cmd::cmdToValue($eqLogic->getConfiguration('addition'));
+					$options['manage'] = 1;
+				}
+				$eqLogic->sendMessage($options);
+			}
+		}
+	}
+
 	public function loadCmdFromConf($type) {
 		if (!is_file(dirname(__FILE__) . '/../config/devices/' . $type . '.json')) {
 			return;
@@ -64,7 +78,11 @@ class smartledmessenger extends eqLogic {
 		}
 		$intensity = (isset($options['intensity'])) ? $options['intensity'] : $this->getConfiguration('intensity'); // 0 à 15
 		$speed = (isset($options['speed'])) ? $options['speed'] : $this->getConfiguration('speed'); // 10 à 50
-		$static = (isset($options['static'])) ? $options['static'] : $this->getConfiguration('static'); // binaire
+		if ($_options['manage'] == 1) {
+			$static = 0;
+		} else {
+			$static = (isset($options['static'])) ? $options['static'] : $this->getConfiguration('static'); // binaire
+		}
 		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_options['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
