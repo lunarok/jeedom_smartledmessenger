@@ -15,7 +15,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 $('#bt_selectMailCmd').on('click', function () {
-  jeedom.cmd.getSelectModal({cmd: {type: 'action', subType: 'message'}}, function (result) {
+  jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
     $('.eqLogicAttr[data-l2key=play]').atCaret('insert', result.human);
   });
 });
