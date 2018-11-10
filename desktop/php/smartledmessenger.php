@@ -158,7 +158,7 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label">{{Texte à ajouter au défilement}}</label>
+							<label class="col-sm-2 control-label">{{Texte à afficher}}</label>
 							<div class="col-sm-3">
 								<div class="input-group">
 									<input type="text"  class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="addition" />

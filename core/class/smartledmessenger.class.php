@@ -26,7 +26,9 @@ class smartledmessenger extends eqLogic {
 		foreach ($eqLogics as $eqLogic) {
 			if ($eqLogic->getConfiguration('manage') == 1) {
 				if ($eqLogic->getConfiguration('addition') != '') {
-					$options['message'] = $options['message'] = date("H:i") . cmd::cmdToValue($eqLogic->getConfiguration('addition'));
+					$replace = scenario::getRequestTags($eqLogic->getConfiguration('addition'));
+					$message = str_replace(array_keys($replace), $replace, $eqLogic->getConfiguration('addition'));;
+					$options['message'] = cmd::cmdToValue($message);
 					$options['manage'] = 1;
 				} else {
 					$options['message'] = date("H:i");
