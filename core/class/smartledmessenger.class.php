@@ -86,6 +86,7 @@ class smartledmessenger extends eqLogic {
 		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_options['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
+		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
 	}
 
 }
