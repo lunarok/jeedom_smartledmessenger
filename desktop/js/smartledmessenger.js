@@ -16,7 +16,7 @@
 */
 $('#bt_selectMailCmd').on('click', function () {
   jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
-    $('.eqLogicAttr[data-l2key=play]').atCaret('insert', result.human);
+    $('.eqLogicAttr[data-l2key=addition]').atCaret('insert', result.human);
   });
 });
 
