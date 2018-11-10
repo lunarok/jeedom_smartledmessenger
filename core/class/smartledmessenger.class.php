@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class smartledmessenger extends eqLogic {
 
 	public static function cron() {
-		$eqLogics = eqLogic::byType('xiaomihome', true);
+		$eqLogics = eqLogic::byType('smartledmessenger', true);
 		foreach ($eqLogics as $eqLogic) {
 			if ($eqLogic->getConfiguration('manage')) {
 				$options['message'] = date("H:i");
