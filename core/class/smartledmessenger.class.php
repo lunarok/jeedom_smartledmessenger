@@ -24,16 +24,28 @@ class smartledmessenger extends eqLogic {
 	public static function cron() {
 		$eqLogics = eqLogic::byType('smartledmessenger', true);
 		foreach ($eqLogics as $eqLogic) {
-			if ($eqLogic->getConfiguration('manage') == 1) {
-				if ($eqLogic->getConfiguration('addition') != '') {
-					$replace = scenario::getRequestTags($eqLogic->getConfiguration('addition'));
-					$message = str_replace(array_keys($replace), $replace, $eqLogic->getConfiguration('addition'));;
-					$options['message'] = cmd::cmdToValue($message);
-					$options['manage'] = 1;
+			$messActive = $eqLogic->getConfiguration('messActive',0);
+			if ($messActive > 0) {
+				$messActive = $messActive -1;
+				$eqLogic->setConfiguration('messActive', $messActive);
+				$eqLogic->save();
+			}
+			if ($messActive == 0) {
+				if ($eqLogic->getConfiguration('manage') == 1) {
+					if ($eqLogic->getConfiguration('addition') != '') {
+						$replace = scenarioExpression::getRequestTags($eqLogic->getConfiguration('addition'));
+						$message = str_replace(array_keys($replace), $replace, $eqLogic->getConfiguration('addition'));;
+						$options['message'] = cmd::cmdToValue($message);
+						$options['manage'] = 1;
+					} else {
+						$options['message'] = date("H:i");
+					}
+					$eqLogic->sendMessage($options);
 				} else {
-					$options['message'] = date("H:i");
+					$url = 'http://' . $eqLogic->getConfiguration('addr') . '/?local=0';
+					$request_http = new com_http($url);
+					$data = $request_http->exec(30);
 				}
-				$eqLogic->sendMessage($options);
 			}
 		}
 	}
@@ -91,14 +103,33 @@ class smartledmessenger extends eqLogic {
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
+		if (isset($options['time']) && is_int($options['time']) && ($options['time'] > 0))	{
+			$this->setConfiguration('messActive',$options['time']);
+			$this->save();
+		}
 	}
 
+	public function sendConfiguration($_options = array()) {
+		($_options['message'] != '') { $this->setConfiguration('addition',$_options['message']) };
+		if (isset($_options['title'])) {
+			$options = arg2array($_options['title']);
+		}
+		(isset($options['intensity'])) { $this->setConfiguration('intensity',$options['intensity'])}; // 0 à 15
+		(isset($options['speed'])) { $this->setConfiguration('speed',$options['speed'])}; // 10 à 50
+		(isset($options['static'])) { $this->setConfiguration('static',$options['static'])}; // binaire
+		(isset($options['manage'])) { $this->setConfiguration('manage',$options['manage'])}; // binaire
+		$this->save();
+	}
 }
 
 class smartledmessengerCmd extends cmd {
 	public function execute($_options = array()) {
 		$eqLogic = $this->getEqLogic();
-		$eqLogic->sendMessage($_options);
+		if ($this->getLogicalId() == "message:options") {
+			$eqLogic->sendMessage($_options);
+		} else {
+			$eqLogic->sendConfiguration($_options);
+		}
 	}
 }
 ?>

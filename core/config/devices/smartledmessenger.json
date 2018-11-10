@@ -11,6 +11,17 @@
         "message_placeholder" : "Message"
       },
       "logicalId": "message:options"
+    },
+    {
+      "name": "Paramétrage du smartledmessenger",
+      "type": "action",
+      "subtype": "message",
+      "display": {
+        "generic_type": "DONT",
+        "title_placeholder": "Options",
+        "message_placeholder" : "Affichage"
+      },
+      "logicalId": "message:settings"
     }
   ]
 }
