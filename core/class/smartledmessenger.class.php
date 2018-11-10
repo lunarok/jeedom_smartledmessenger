@@ -24,11 +24,12 @@ class smartledmessenger extends eqLogic {
 	public static function cron() {
 		$eqLogics = eqLogic::byType('smartledmessenger', true);
 		foreach ($eqLogics as $eqLogic) {
-			if ($eqLogic->getConfiguration('manage')) {
-				$options['message'] = date("H:i");
+			if ($eqLogic->getConfiguration('manage') == 1) {
 				if ($eqLogic->getConfiguration('addition') != '') {
-					$options['message']+= cmd::cmdToValue($eqLogic->getConfiguration('addition'));
+					$options['message'] = $options['message'] = date("H:i") . cmd::cmdToValue($eqLogic->getConfiguration('addition'));
 					$options['manage'] = 1;
+				} else {
+					$options['message'] = date("H:i");
 				}
 				$eqLogic->sendMessage($options);
 			}
@@ -73,6 +74,7 @@ class smartledmessenger extends eqLogic {
 		if ($_options['message'] == '') {
 			return;
 		}
+		log::add('smartledmessenger', 'debug', 'Message : ' . $_options['message']);
 		if (isset($_options['title'])) {
 			$options = arg2array($_options['title']);
 		}
