@@ -131,7 +131,7 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 									<?php
 									// 10 à 50
 									$i = 10;
-									while ($i <= 50) {
+									while ($i <= 100) {
 										echo '<option value="' . $i . '">' . $i . '</option>';
 										$i++;
 									}
