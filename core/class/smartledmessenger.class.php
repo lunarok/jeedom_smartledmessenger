@@ -34,7 +34,6 @@ class smartledmessenger extends eqLogic {
 				if ($eqLogic->getConfiguration('manage') == 1) {
 					if ($eqLogic->getConfiguration('addition') != '') {
 						$options['message'] = scenarioExpression::setTags($eqLogic->getConfiguration('addition'));
-						$options['manage'] = 1;
 					} else {
 						$options['message'] = date("H:i");
 					}
@@ -92,11 +91,7 @@ class smartledmessenger extends eqLogic {
 		}
 		$intensity = (isset($options['intensity'])) ? $options['intensity'] : $this->getConfiguration('intensity'); // 0 à 15
 		$speed = (isset($options['speed'])) ? $options['speed'] : $this->getConfiguration('speed'); // 10 à 50
-		if ($_options['manage'] == 1) {
-			$static = 0;
-		} else {
-			$static = (isset($options['static'])) ? $options['static'] : $this->getConfiguration('static'); // binaire
-		}
+		$static = (strlen($_options['message']) > 5) ? 0 : 1;
 		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_options['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
@@ -112,10 +107,10 @@ class smartledmessenger extends eqLogic {
 		if (isset($_options['title'])) {
 			$options = arg2array($_options['title']);
 		}
-		(isset($options['intensity'])) { $this->setConfiguration('intensity',$options['intensity'])}; // 0 à 15
-		(isset($options['speed'])) { $this->setConfiguration('speed',$options['speed'])}; // 10 à 50
-		(isset($options['static'])) { $this->setConfiguration('static',$options['static'])}; // binaire
-		(isset($options['manage'])) { $this->setConfiguration('manage',$options['manage'])}; // binaire
+		if (isset($options['intensity'])) { $this->setConfiguration('intensity',$options['intensity'])}; // 0 à 15
+		if (isset($options['speed'])) { $this->setConfiguration('speed',$options['speed'])}; // 10 à 50
+		if (isset($options['static'])) { $this->setConfiguration('static',$options['static'])}; // binaire
+		if (isset($options['manage'])) { $this->setConfiguration('manage',$options['manage'])}; // binaire
 		$this->save();
 	}
 }
