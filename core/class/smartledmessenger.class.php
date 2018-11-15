@@ -103,14 +103,14 @@ class smartledmessenger extends eqLogic {
 	}
 
 	public function sendConfiguration($_options = array()) {
-		($_options['message'] != '') { $this->setConfiguration('addition',$_options['message']) };
+		if ($_options['message'] != '') { $this->setConfiguration('addition',$_options['message']); }
 		if (isset($_options['title'])) {
 			$options = arg2array($_options['title']);
 		}
-		if (isset($options['intensity'])) { $this->setConfiguration('intensity',$options['intensity'])}; // 0 à 15
-		if (isset($options['speed'])) { $this->setConfiguration('speed',$options['speed'])}; // 10 à 50
-		if (isset($options['static'])) { $this->setConfiguration('static',$options['static'])}; // binaire
-		if (isset($options['manage'])) { $this->setConfiguration('manage',$options['manage'])}; // binaire
+		if (isset($options['intensity'])) { $this->setConfiguration('intensity',$options['intensity']);} // 0 à 15
+		if (isset($options['speed'])) { $this->setConfiguration('speed',$options['speed']);} // 10 à 50
+		if (isset($options['static'])) { $this->setConfiguration('static',$options['static']);} // binaire
+		if (isset($options['manage'])) { $this->setConfiguration('manage',$options['manage']);} // binaire
 		$this->save();
 	}
 }
