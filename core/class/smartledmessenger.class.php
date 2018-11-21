@@ -24,26 +24,7 @@ class smartledmessenger extends eqLogic {
 	public static function cron() {
 		$eqLogics = eqLogic::byType('smartledmessenger', true);
 		foreach ($eqLogics as $eqLogic) {
-			$messActive = $eqLogic->getConfiguration('messActive',0);
-			if ($messActive > 0) {
-				$messActive = $messActive -1;
-				$eqLogic->setConfiguration('messActive', $messActive);
-				$eqLogic->save();
-			}
-			if ($messActive == 0) {
-				if ($eqLogic->getConfiguration('manage') == 1) {
-					if ($eqLogic->getConfiguration('addition') != '') {
-						$options['message'] = scenarioExpression::setTags($eqLogic->getConfiguration('addition'));
-					} else {
-						$options['message'] = date("H:i");
-					}
-					$eqLogic->sendMessage($options);
-				} else {
-					$url = 'http://' . $eqLogic->getConfiguration('addr') . '/?local=0';
-					$request_http = new com_http($url);
-					$data = $request_http->exec(30);
-				}
-			}
+			$eqLogic->refresh();
 		}
 	}
 
@@ -79,6 +60,25 @@ class smartledmessenger extends eqLogic {
 
 	public function postAjax() {
 		$this->loadCmdFromConf('smartledmessenger');
+	}
+
+	public function refresh() {
+			$messActive = $this->getConfiguration('messActive',0);
+			if ($messActive > 0) {
+				$messActive = $messActive -1;
+				$this->setConfiguration('messActive', $messActive);
+				$this->save();
+			}
+			if ($messActive == 0) {
+				if ($this->getConfiguration('manage') == 1) {
+					$options['message'] = scenarioExpression::setTags($this->getConfiguration('addition'));
+					$this->sendMessage($options);
+				} else {
+					$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
+					$request_http = new com_http($url);
+					$data = $request_http->exec(30);
+				}
+			}
 	}
 
 	public function sendMessage($_options = array()) {
@@ -118,10 +118,16 @@ class smartledmessenger extends eqLogic {
 class smartledmessengerCmd extends cmd {
 	public function execute($_options = array()) {
 		$eqLogic = $this->getEqLogic();
-		if ($this->getLogicalId() == "message:options") {
+		switch ($this->getLogicalId()) {
+			case 'message:options':
 			$eqLogic->sendMessage($_options);
-		} else {
+			break;
+			case 'message:settings':
 			$eqLogic->sendConfiguration($_options);
+			break;
+			case 'message:refresh':
+			$eqLogic->refresh();
+			break;
 		}
 	}
 }

@@ -22,6 +22,12 @@
         "message_placeholder" : "Affichage"
       },
       "logicalId": "message:settings"
+    },
+    {
+      "name": "Rafraichir",
+      "type": "action",
+      "subtype": "other",
+      "logicalId": "message:refresh"
     }
   ]
 }
