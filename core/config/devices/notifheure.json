@@ -1,0 +1,33 @@
+{
+  "name": "notifheure",
+  "commands": [
+    {
+      "name": "Message à afficher",
+      "type": "action",
+      "subtype": "message",
+      "display": {
+        "generic_type": "DONT",
+        "title_placeholder": "Options",
+        "message_placeholder" : "Message"
+      },
+      "logicalId": "message:options"
+    },
+    {
+      "name": "Paramétrage du notifheure",
+      "type": "action",
+      "subtype": "message",
+      "display": {
+        "generic_type": "DONT",
+        "title_placeholder": "Options",
+        "message_placeholder" : "Affichage"
+      },
+      "logicalId": "message:settings"
+    },
+    {
+      "name": "Rafraichir",
+      "type": "action",
+      "subtype": "other",
+      "logicalId": "message:refresh"
+    }
+  ]
+}

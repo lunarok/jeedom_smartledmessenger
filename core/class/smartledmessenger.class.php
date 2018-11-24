@@ -59,12 +59,12 @@ class smartledmessenger extends eqLogic {
 	}
 
 	public function postAjax() {
-		$this->loadCmdFromConf('smartledmessenger');
+		$this->loadCmdFromConf($this->getConfiguration('type','smartledmessenger'));
 	}
 
 	public function refresh() {
 			$messActive = $this->getConfiguration('messActive',0);
-			if ($messActive > 0) {
+			if (int($messActive) > 0) {
 				$messActive = $messActive -1;
 				$this->setConfiguration('messActive', $messActive);
 				$this->save();
@@ -74,9 +74,11 @@ class smartledmessenger extends eqLogic {
 					$options['message'] = scenarioExpression::setTags($this->getConfiguration('addition'));
 					$this->sendMessage($options);
 				} else {
-					$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
-					$request_http = new com_http($url);
-					$data = $request_http->exec(30);
+					if ($eqLogic->getConfiguration('type') == 'smartledmessenger') {
+						$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
+						$request_http = new com_http($url);
+						$data = $request_http->exec(30);
+					}
 				}
 			}
 	}
@@ -89,17 +91,37 @@ class smartledmessenger extends eqLogic {
 		if (isset($_options['title'])) {
 			$options = arg2array($_options['title']);
 		}
-		$intensity = (isset($options['intensity'])) ? $options['intensity'] : $this->getConfiguration('intensity'); // 0 à 15
-		$speed = (isset($options['speed'])) ? $options['speed'] : $this->getConfiguration('speed'); // 10 à 50
-		$static = (strlen($_options['message']) > 5) ? 0 : 1;
-		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_options['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
-		$request_http = new com_http($url);
-		$data = $request_http->exec(30);
-		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
+		if ($eqLogic->getConfiguration('type') == 'smartledmessenger') {
+			$eqLogic->sendSmartLedMessenger($_options['message'], $_options);
+		} else {
+			$eqLogic->sendNotifHeure($_options['message'], $_options);
+		}
 		if (isset($options['time']) && is_int($options['time']) && ($options['time'] > 0))	{
+			log::add('smartledmessenger', 'debug', 'Time set : ' . $_options['time']);
 			$this->setConfiguration('messActive',$options['time']);
 			$this->save();
 		}
+	}
+
+	public function sendSmartLedMessenger($_message, $_options = array()) {
+		$intensity = (isset($_options['intensity'])) ? $_options['intensity'] : $this->getConfiguration('intensity'); // 0 à 15
+		$speed = (isset($_options['speed'])) ? $_options['speed'] : $this->getConfiguration('speed'); // 10 à 50
+		$static = (strlen($_message) > 5) ? 0 : 1;
+		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_message) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
+		$request_http = new com_http($url);
+		$data = $request_http->exec(30);
+		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
+	}
+
+	public function sendNotifHeure($_message, $_options = array()) {
+		$intensity = (isset($_options['lum'])) ? $_options['lum'] : $this->getConfiguration('intensity'); // 0 à 15
+		$type = (isset($_options['type'])) ? $_options['type'] : $this->getConfiguration('effect'); // 0 à 15
+		$txt = (isset($_options['txt'])) ? $_options['txt'] : $this->getConfiguration('txt'); // 0 à 15
+		$flash = (isset($_options['flash'])) ? $_options['flash'] : $this->getConfiguration('flash'); // binary
+		$url = 'http://' . $this->getConfiguration('addr') . '/?msg=' . urlencode($_message) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
+		$request_http = new com_http($url);
+		$data = $request_http->exec(30);
+		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
 	}
 
 	public function sendConfiguration($_options = array()) {
@@ -120,7 +142,7 @@ class smartledmessengerCmd extends cmd {
 		$eqLogic = $this->getEqLogic();
 		switch ($this->getLogicalId()) {
 			case 'message:options':
-			$eqLogic->sendMessage($_options);
+			$eqLogic->sendSmartLedMessenger($_options);
 			break;
 			case 'message:settings':
 			$eqLogic->sendConfiguration($_options);

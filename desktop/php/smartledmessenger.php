@@ -109,6 +109,16 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 						</div>
 
 						<div class="form-group">
+							<label class="col-sm-2 control-label">{{Type}}</label>
+							<div class="col-sm-3">
+								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="type" id="type">
+									<option value="smartledmessenger">Smart Led Messenger</option>
+									<option value="notifheure">Notif'Heure</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<label class="col-sm-2 control-label">{{Intensité}}</label>
 							<div class="col-sm-3">
 								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="intensity">
@@ -124,7 +134,7 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group" id="vitesse">
 							<label class="col-sm-2 control-label">{{Vitesse}}</label>
 							<div class="col-sm-3">
 								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="speed">
@@ -140,7 +150,35 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group" id="effect">
+							<label class="col-sm-2 control-label">{{Effet}}</label>
+							<div class="col-sm-3">
+								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="effect">
+									<option value="BLINDS">Volet</option>
+									<option value="PAC">PAC</option>
+									<option value="OPENING">Ouverture</option>
+									<option value="FIX">Fixe</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group" id="flash">
+							<label class="col-sm-2 control-label">{{Flash}}</label>
+							<div class="col-sm-3">
+								<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="flash" checked/></label>
+							</div>
+						</div>
+
+						<div class="form-group" id="txt">
+							<label class="col-sm-2 control-label">{{Texte avant les notifs}}</label>
+							<div class="col-sm-3">
+								<div class="input-group">
+									<input type="text"  class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="txt" />
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group" id="manage">
 							<label class="col-sm-2 control-label">{{Gérer en local}}</label>
 							<div class="col-sm-3">
 								<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="manage" checked/></label>
