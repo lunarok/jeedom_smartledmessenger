@@ -93,9 +93,9 @@ class smartledmessenger extends eqLogic {
 			$options = arg2array($_options['title']);
 		}
 		if ($eqLogic->getConfiguration('type') == 'smartledmessenger') {
-			$eqLogic->sendSmartLedMessenger($_options['message'], $options);
+			$eqLogic->sendSmartLedMessenger($_options, $options);
 		} else {
-			$eqLogic->sendNotifHeure($_options['message'], $options);
+			$eqLogic->sendNotifHeure($_options, $options);
 		}
 		if (isset($options['time']) && is_int($options['time']) && ($options['time'] > 0))	{
 			log::add('smartledmessenger', 'debug', 'Time set : ' . $_options['time']);
@@ -104,22 +104,22 @@ class smartledmessenger extends eqLogic {
 		}
 	}
 
-	public function sendSmartLedMessenger($_message, $_options = array()) {
+	public function sendSmartLedMessenger($_message = array(), $_options = array()) {
 		$intensity = (isset($_options['intensity'])) ? $_options['intensity'] : $this->getConfiguration('intensity'); // 0 à 15
 		$speed = (isset($_options['speed'])) ? $_options['speed'] : $this->getConfiguration('speed'); // 10 à 50
-		$static = (strlen($_message) > 5) ? 0 : 1;
-		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_message) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
+		$static = (strlen($_message['message']) > 5) ? 0 : 1;
+		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_message['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
 	}
 
-	public function sendNotifHeure($_message, $_options = array()) {
+	public function sendNotifHeure($_message = array(), $_options = array()) {
 		$intensity = (isset($_options['lum'])) ? $_options['lum'] : $this->getConfiguration('intensity'); // 0 à 15
 		$type = (isset($_options['type'])) ? $_options['type'] : $this->getConfiguration('effect'); // 0 à 15
 		$txt = (isset($_options['txt'])) ? $_options['txt'] : $this->getConfiguration('txt'); // 0 à 15
 		$flash = (isset($_options['flash'])) ? $_options['flash'] : $this->getConfiguration('flash'); // binary
-		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode($_message) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
+		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode($_message['message']) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
