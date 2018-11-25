@@ -88,7 +88,7 @@ class smartledmessenger extends eqLogic {
 			return;
 		}
 		log::add('smartledmessenger', 'debug', 'Message : ' . $_options['message']);
-		$options = array()
+		$options = array();
 		if (isset($_options['title'])) {
 			$options = arg2array($_options['title']);
 		}
