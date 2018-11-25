@@ -14,6 +14,20 @@
 * You should have received a copy of the GNU General Public License
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
+function typefieldChange(){
+	if ($('#typefield').value() == 'smartledmessenger') {
+    $('#txt').hide();
+    $('#flash').hide();
+    $('#effect').hide();
+    $('#vitesse').show();
+  } else {
+    $('#txt').show();
+    $('#flash').show();
+    $('#effect').show();
+    $('#vitesse').hide();
+  }
+}
+
 $('#bt_selectMailCmd').on('click', function () {
   jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
     $('.eqLogicAttr[data-l2key=addition]').atCaret('insert', result.human);
