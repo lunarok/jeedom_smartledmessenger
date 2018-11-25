@@ -64,7 +64,7 @@ class smartledmessenger extends eqLogic {
 
 	public function refresh() {
 			$messActive = $this->getConfiguration('messActive',0);
-			if (int($messActive) > 0) {
+			if (intval($messActive) > 0) {
 				$messActive = $messActive -1;
 				$this->setConfiguration('messActive', $messActive);
 				$this->save();
@@ -118,7 +118,7 @@ class smartledmessenger extends eqLogic {
 		$type = (isset($_options['type'])) ? $_options['type'] : $this->getConfiguration('effect'); // 0 à 15
 		$txt = (isset($_options['txt'])) ? $_options['txt'] : $this->getConfiguration('txt'); // 0 à 15
 		$flash = (isset($_options['flash'])) ? $_options['flash'] : $this->getConfiguration('flash'); // binary
-		$url = 'http://' . $this->getConfiguration('addr') . '/?msg=' . urlencode($_message) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
+		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode($_message) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
