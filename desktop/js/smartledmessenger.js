@@ -15,7 +15,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 function typefieldChange(){
-	if ($('#typefield').value() == 'smartledmessenger') {
+	if ($('#type').value() == 'smartledmessenger') {
     $('#txt').hide();
     $('#flash').hide();
     $('#effect').hide();
@@ -27,6 +27,10 @@ function typefieldChange(){
     $('#vitesse').hide();
   }
 }
+
+$( "#type" ).change(function(){
+  setTimeout(typefieldChange,100);
+});
 
 $('#bt_selectMailCmd').on('click', function () {
   jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
