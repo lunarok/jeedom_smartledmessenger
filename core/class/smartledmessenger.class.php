@@ -77,7 +77,7 @@ class smartledmessenger extends eqLogic {
 					if ($this->getConfiguration('type') == 'smartledmessenger') {
 						$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
 						$request_http = new com_http($url);
-						$data = $request_http->exec(30);
+						$request_http->exec(30);
 					}
 				}
 			}
@@ -94,7 +94,8 @@ class smartledmessenger extends eqLogic {
 		}
 		if ($this->getConfiguration('type') == 'smartledmessenger') {
 			$this->sendSmartLedMessenger($_options, $options);
-		} else {
+		}
+		if ($this->getConfiguration('type') == 'notifheure') {
 			$this->sendNotifHeure($_options, $options);
 		}
 		if (isset($options['time']) && is_int($options['time']) && ($options['time'] > 0))	{
@@ -110,7 +111,7 @@ class smartledmessenger extends eqLogic {
 		$static = (strlen($_message['message']) > 5) ? 0 : 1;
 		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_message['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
 		$request_http = new com_http($url);
-		$data = $request_http->exec(30);
+		$request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
 	}
 
