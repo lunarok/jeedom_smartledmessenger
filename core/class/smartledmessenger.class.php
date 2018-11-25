@@ -144,7 +144,7 @@ class smartledmessengerCmd extends cmd {
 		$eqLogic = $this->getEqLogic();
 		switch ($this->getLogicalId()) {
 			case 'message:options':
-			$eqLogic->sendSmartLedMessenger($_options);
+			$eqLogic->sendMessage($_options);
 			break;
 			case 'message:settings':
 			$eqLogic->sendConfiguration($_options);
