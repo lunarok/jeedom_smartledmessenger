@@ -112,7 +112,7 @@ $eqLogics = eqLogic::byType('smartledmessenger');
 							<label class="col-sm-2 control-label">{{Type}}</label>
 							<div class="col-sm-3">
 								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="type" id="type">
-									<option value="smartledmessenger">Smart Led Messenger</option>
+									<option value="smartledmessenger" selected>Smart Led Messenger</option>
 									<option value="notifheure">Notif'Heure</option>
 								</select>
 							</div>
