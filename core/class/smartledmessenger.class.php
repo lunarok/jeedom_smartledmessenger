@@ -120,7 +120,7 @@ class smartledmessenger extends eqLogic {
 		$type = (isset($_options['type'])) ? $_options['type'] : $this->getConfiguration('effect'); // 0 à 15
 		$txt = (isset($_options['txt'])) ? $_options['txt'] : $this->getConfiguration('txt'); // 0 à 15
 		$flash = (isset($_options['flash'])) ? $_options['flash'] : $this->getConfiguration('flash'); // binary
-		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode($_message['message']) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
+		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode(iconv("UTF-8", "CP1252",$_message['message'])) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
