@@ -1,0 +1,54 @@
+{
+    "name": "notifheureDHT",
+    "commands": [
+        {
+            "name": "Température",
+            "type": "info",
+            "subtype": "numeric",
+            "display": {
+				"generic_type": "DONT"
+            },
+            "unite": "°C",
+            "logicalId": "dht:temperature"
+        },
+        {
+            "name": "Humidité",
+            "type": "info",
+            "subtype": "numeric",
+            "display": {
+				"generic_type": "DONT"
+            },
+            "unite": "%",
+            "logicalId": "dht:humidity"
+        },
+        {
+            "name": "Température Ressentie",
+            "type": "info",
+            "subtype": "numeric",
+            "display": {
+				"generic_type": "DONT"
+            },
+            "unite": "°C",
+            "logicalId": "dht:tempre"
+        },
+        {
+            "name": "Température point de rosée",
+            "type": "info",
+            "subtype": "numeric",
+            "display": {
+				"generic_type": "DONT"
+            },
+            "unite": "°C",
+            "logicalId": "dht:rosee"
+        },
+        {
+            "name": "Indice Confort",
+            "type": "info",
+            "subtype": "numeric",
+            "display": {
+				"generic_type": "DONT"
+            },
+            "logicalId": "dht:confort"
+        }
+    ]
+}
