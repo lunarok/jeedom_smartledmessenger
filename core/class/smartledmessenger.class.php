@@ -133,7 +133,7 @@ class smartledmessenger extends eqLogic {
 		$url = 'http://' . $this->getConfiguration('addr') . '/getInfo';
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
-		$data = json_decode($data);
+		$data = json_decode($data,true);
 		if ($data['system']['dhtsensor'] == true) {
 			//DHT present
 			$cmd = smartledmessengerCmd::byEqLogicIdAndLogicalId($this->getId(), 'dht:temperature');
