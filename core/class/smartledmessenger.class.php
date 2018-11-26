@@ -134,6 +134,18 @@ class smartledmessenger extends eqLogic {
 		$request_http = new com_http($url);
 		$data = $request_http->exec(30);
 		$data = json_decode($data);
+		//$data['system']['dhtsensor']
+		//$data['system']['Bouton1']
+		//$data['system']['Bouton2']
+		//$data['system']['display'] // nb écran
+		//$data['system']['LED'] // présence LED
+		//$data['system']['multizone']
+		//$data['system']['box'] // box domotique
+		//$data['dht']['T']
+		//$data['dht']['H']
+		//$data['dht']['Hi'] // ressentie
+		//$data['dht']['p'] // température point de rosée
+		//$data['dht']['per'] // confort
 		log::add('smartledmessenger', 'debug', 'Infos : ' . print_r($data , true));
 	}
 
