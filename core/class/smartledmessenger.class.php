@@ -81,6 +81,9 @@ class smartledmessenger extends eqLogic {
 					}
 				}
 			}
+			if ($this->getConfiguration('type') == 'notifheure') {
+				$this->getNotifHeure();
+			}
 	}
 
 	public function sendMessage($_options = array()) {
@@ -122,8 +125,16 @@ class smartledmessenger extends eqLogic {
 		$flash = (isset($_options['flash'])) ? $_options['flash'] : $this->getConfiguration('flash'); // binary
 		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode(iconv("UTF-8", "CP1252",$_message['message'])) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
 		$request_http = new com_http($url);
-		$data = $request_http->exec(30);
+		$request_http->exec(30);
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
+	}
+
+	public function getNotifHeure() {
+		$url = 'http://' . $this->getConfiguration('addr') . '/getInfo';
+		$request_http = new com_http($url);
+		$data = $request_http->exec(30);
+		$data = json_decode($data);
+		log::add('smartledmessenger', 'debug', 'Infos : ' . print_r($data , true));
 	}
 
 	public function sendConfiguration($_options = array()) {
