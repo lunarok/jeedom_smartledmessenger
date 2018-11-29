@@ -77,7 +77,7 @@ class smartledmessenger extends eqLogic {
 					if ($this->getConfiguration('type') == 'smartledmessenger') {
 						$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
 						$request_http = new com_http($url);
-						$request_http->exec(30);
+						$request_http->exec();
 					}
 				}
 			}
@@ -114,7 +114,7 @@ class smartledmessenger extends eqLogic {
 		$static = (strlen($_message['message']) > 5) ? 0 : 1;
 		$url = 'http://' . $this->getConfiguration('addr') . '/?message=' . urlencode($_message['message']) . '&intensity=' . $intensity . '&speed=' . $speed . '&local=1&static=' . $static;
 		$request_http = new com_http($url);
-		$request_http->exec(30);
+		$request_http->exec();
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
 	}
 
@@ -125,14 +125,14 @@ class smartledmessenger extends eqLogic {
 		$flash = (isset($_options['flash'])) ? $_options['flash'] : $this->getConfiguration('flash'); // binary
 		$url = 'http://' . $this->getConfiguration('addr') . '/Notification?msg=' . urlencode(iconv("UTF-8", "CP1252",$_message['message'])) . '&lum=' . $intensity . '&type=' . $type . '&txt=' . $txt . '&flash=' . $flash;
 		$request_http = new com_http($url);
-		$request_http->exec(30);
+		$request_http->exec();
 		log::add('smartledmessenger', 'debug', 'Call : ' . $url);
 	}
 
 	public function getNotifHeure() {
 		$url = 'http://' . $this->getConfiguration('addr') . '/getInfo';
 		$request_http = new com_http($url);
-		$data = $request_http->exec(30);
+		$data = $request_http->exec();
 		$data = json_decode($data,true);
 		if ($data['system']['dhtsensor'] == true) {
 			//DHT present
