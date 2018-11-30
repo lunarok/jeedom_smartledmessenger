@@ -1,7 +1,7 @@
 {
 	"id" : "smartledmessenger",
-	"name" : "Smart Led Messenger",
-	"description" : "Plugin permettant de gérer l'affichage sur des Smart Led Messenger.",
+	"name" : "Matrix Display",
+	"description" : "Plugin permettant de gérer l'affichage sur des Smart Led Messenger et Notif'Heure.",
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "3.0",
