@@ -1,13 +1,13 @@
 {
 	"id" : "smartledmessenger",
-	"name" : "Matrix Display",
-	"description" : "Plugin permettant de gérer l'affichage sur des Smart Led Messenger et Notif'Heure.",
+	"name" : "Smart Led Messenger",
+	"description" : "Plugin permettant de gérer l'affichage sur des Smart Led Messenger.",
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "3.0",
 	"category" : "devicecommunication",
 	"language" : ["fr_FR","en_US"],
-	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy"],
 	"changelog" : "https://lunarok.github.io/jeedom_docs/plugins/smartledmessenger/changelog.html",
 	"documentation" : "https://lunarok.github.io/jeedom_docs/plugins/smartledmessenger/"
 }
