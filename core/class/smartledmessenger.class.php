@@ -95,8 +95,8 @@ class smartledmessenger extends eqLogic {
 		if ($this->getConfiguration('type') == 'smartledmessenger') {
 			$this->sendSmartLedMessenger($_options, $options);
 		}
-		if (isset($options['time']) && is_int($options['time']) && ($options['time'] > 0))	{
-			log::add('smartledmessenger', 'debug', 'Time set : ' . $_options['time']);
+		if (isset($options['time']) && (intval($options['time']) > 0))	{
+			log::add('smartledmessenger', 'debug', 'Time set : ' . $options['time']);
 			$this->setConfiguration('messActive',$options['time']);
 			$this->save();
 		}
