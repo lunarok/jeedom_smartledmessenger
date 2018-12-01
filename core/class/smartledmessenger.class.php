@@ -59,7 +59,7 @@ class smartledmessenger extends eqLogic {
 	}
 
 	public function postAjax() {
-		$this->loadCmdFromConf($this->getConfiguration('type','smartledmessenger'));
+		$this->loadCmdFromConf('smartledmessenger');
 	}
 
 	public function refresh() {
@@ -74,11 +74,9 @@ class smartledmessenger extends eqLogic {
 					$options['message'] = scenarioExpression::setTags($this->getConfiguration('addition'));
 					$this->sendMessage($options);
 				} else {
-					if ($this->getConfiguration('type') == 'smartledmessenger') {
-						$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
-						$request_http = new com_http($url);
-						$request_http->exec(30);
-					}
+					$url = 'http://' . $this->getConfiguration('addr') . '/?local=0';
+					$request_http = new com_http($url);
+					$request_http->exec(30);
 				}
 			}
 	}
@@ -92,9 +90,7 @@ class smartledmessenger extends eqLogic {
 		if (isset($_options['title'])) {
 			$options = arg2array($_options['title']);
 		}
-		if ($this->getConfiguration('type') == 'smartledmessenger') {
-			$this->sendSmartLedMessenger($_options, $options);
-		}
+		$this->sendSmartLedMessenger($_options, $options);
 		if (isset($options['time']) && (intval($options['time']) > 0))	{
 			log::add('smartledmessenger', 'debug', 'Time set : ' . $options['time']);
 			$this->setConfiguration('messActive',$options['time']);
