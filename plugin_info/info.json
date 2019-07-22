@@ -4,7 +4,7 @@
 	"description" : "Plugin permettant de gérer l'affichage sur des Smart Led Messenger.",
 	"licence" : "AGPL",
 	"author" : "lunarok",
-	"require" : "3.0",
+	"require" : "3.3.24",
 	"category" : "devicecommunication",
 	"language" : ["fr_FR","en_US"],
 	"compatibility" : ["miniplus","smart","rpi","docker","diy"],
