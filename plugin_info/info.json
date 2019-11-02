@@ -7,7 +7,7 @@
 	"require" : "3.3.24",
 	"category" : "devicecommunication",
 	"language" : ["fr_FR","en_US"],
-	"compatibility" : ["miniplus","smart","rpi","docker","diy"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","v4"],
 	"changelog" : "https://lunarok.github.io/jeedom_docs/plugins/smartledmessenger/changelog.html",
 	"documentation" : "https://lunarok.github.io/jeedom_docs/plugins/smartledmessenger/"
 }
